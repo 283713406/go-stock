@@ -15,6 +15,11 @@ npm --version
 echo "==> Wails"
 wails version
 
+echo "==> Install Go developer tools"
+go install golang.org/x/tools/gopls@latest || echo "WARN: failed to install gopls"
+go install github.com/go-delve/delve/cmd/dlv@latest || echo "WARN: failed to install dlv"
+go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest || echo "WARN: failed to install golangci-lint"
+
 echo "==> Download Go modules"
 go mod download
 

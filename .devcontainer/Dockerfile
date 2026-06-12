@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 
 ARG GO_VERSION=1.26.0
 ARG NODE_MAJOR=22
@@ -7,6 +7,9 @@ ARG WAILS_VERSION=v2.11.0
 ENV DEBIAN_FRONTEND=noninteractive
 ENV GOPATH=/go
 ENV GOBIN=/go/bin
+ENV GOPROXY=https://goproxy.cn,direct
+ENV GOSUMDB=sum.golang.google.cn
+ENV NPM_CONFIG_REGISTRY=https://registry.npmmirror.com
 ENV PATH=/usr/local/go/bin:/go/bin:/usr/local/share/npm-global/bin:${PATH}
 
 RUN apt-get update \
@@ -22,12 +25,12 @@ RUN apt-get update \
         make \
         libc6-dev \
         libgtk-3-dev \
-        libwebkit2gtk-4.1-dev \
+        libwebkit2gtk-4.0-dev \
         libayatana-appindicator3-dev \
         libnotify-dev \
         libnss3 \
         libxss1 \
-        libasound2t64 \
+        libasound2 \
         libgbm1 \
         libxkbcommon0 \
         xdg-utils \
@@ -62,6 +65,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - \
     && apt-get update \
     && apt-get install -y --no-install-recommends nodejs \
     && npm install -g npm@latest \
+    && npm config set registry "${NPM_CONFIG_REGISTRY}" \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /go /usr/local/share/npm-global /tmp/vscode-runtime \
@@ -69,9 +73,6 @@ RUN mkdir -p /go /usr/local/share/npm-global /tmp/vscode-runtime \
 
 USER vscode
 
-RUN go install github.com/wailsapp/wails/v2/cmd/wails@${WAILS_VERSION} \
-    && go install golang.org/x/tools/gopls@latest \
-    && go install github.com/go-delve/delve/cmd/dlv@latest \
-    && go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest
+RUN go install github.com/wailsapp/wails/v2/cmd/wails@${WAILS_VERSION}
 
 WORKDIR /workspaces/go-stock
