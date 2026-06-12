@@ -11,8 +11,7 @@
     "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
     "XDG_RUNTIME_DIR": "/tmp/vscode-runtime",
     "GOPATH": "/go",
-    "GOBIN": "/go/bin",
-    "PATH": "/usr/local/go/bin:/go/bin:/usr/local/share/npm-global/bin:${containerEnv:PATH}"
+    "GOBIN": "/go/bin"
   },
   "runArgs": [
     "--init",
