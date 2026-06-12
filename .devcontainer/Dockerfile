@@ -56,7 +56,7 @@ RUN arch="$(dpkg --print-architecture)" \
         arm64) go_arch="arm64" ;; \
         *) echo "unsupported architecture: $arch" >&2; exit 1 ;; \
     esac \
-    && curl -fsSL "https://go.dev/dl/go${GO_VERSION}.linux-${go_arch}.tar.gz" -o /tmp/go.tgz \
+    && curl -fsSL "https://mirrors.aliyun.com/golang/go${GO_VERSION}.linux-${go_arch}.tar.gz" -o /tmp/go.tgz \
     && rm -rf /usr/local/go \
     && tar -C /usr/local -xzf /tmp/go.tgz \
     && rm /tmp/go.tgz
