@@ -5,7 +5,7 @@
     "context": ".."
   },
   "workspaceFolder": "/workspaces/go-stock",
-  "remoteUser": "vscode",
+  "remoteUser": "root",
   "containerEnv": {
     "DISPLAY": "${localEnv:DISPLAY}",
     "WAYLAND_DISPLAY": "${localEnv:WAYLAND_DISPLAY}",
@@ -21,8 +21,8 @@
   ],
   "mounts": [
     "source=go-stock-gomod,target=/go/pkg/mod,type=volume",
-    "source=go-stock-gocache,target=/home/vscode/.cache/go-build,type=volume",
-    "source=go-stock-npm-cache,target=/home/vscode/.npm,type=volume"
+    "source=go-stock-gocache,target=/root/.cache/go-build,type=volume",
+    "source=go-stock-npm-cache,target=/root/.npm,type=volume"
   ],
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "postStartCommand": "mkdir -p /tmp/vscode-runtime && chmod 700 /tmp/vscode-runtime",

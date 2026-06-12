@@ -72,10 +72,7 @@ RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_MAJOR}.x | bash - \
     && npm config set registry "${NPM_CONFIG_REGISTRY}" \
     && rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /go /usr/local/share/npm-global /tmp/vscode-runtime \
-    && chown -R vscode:vscode /go /usr/local/share/npm-global /tmp/vscode-runtime
-
-USER vscode
+RUN mkdir -p /go /usr/local/share/npm-global /tmp/vscode-runtime
 
 RUN go install github.com/wailsapp/wails/v2/cmd/wails@${WAILS_VERSION}
 
