@@ -3,6 +3,7 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-22.04
 ARG GO_VERSION=1.26.0
 ARG NODE_MAJOR=22
 ARG WAILS_VERSION=v2.11.0
+ARG UBUNTU_MIRROR=https://mirrors.aliyun.com/ubuntu
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV GOPATH=/go
@@ -11,6 +12,9 @@ ENV GOPROXY=https://goproxy.cn,direct
 ENV GOSUMDB=sum.golang.google.cn
 ENV NPM_CONFIG_REGISTRY=https://registry.npmmirror.com
 ENV PATH=/usr/local/go/bin:/go/bin:/usr/local/share/npm-global/bin:${PATH}
+
+RUN sed -i "s|http://archive.ubuntu.com/ubuntu|${UBUNTU_MIRROR}|g; s|http://security.ubuntu.com/ubuntu|${UBUNTU_MIRROR}|g" /etc/apt/sources.list \
+    && printf 'Acquire::Retries "5";\nAcquire::http::Timeout "30";\nAcquire::https::Timeout "30";\n' > /etc/apt/apt.conf.d/80-retries
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
